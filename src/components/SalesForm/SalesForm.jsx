@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IoCloseOutline } from "react-icons/io5";
 
-const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice }) => {
+const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice, clearCart }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -10,6 +10,7 @@ const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice }) => {
         paymentMethod: '',
     });
     const [errorMessage, setErrorMessage] = useState('');
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // Nuevo estado para el mensaje de éxito
 
     const handleInputChange = (e) => {
         setFormData({
@@ -22,7 +23,25 @@ const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice }) => {
         e.preventDefault();
         const isValid = validateForm();
         if (isValid) {
-            alert('Order placed successfully!');
+            // Limpiar el formulario y mostrar el mensaje de éxito
+            setFormData({
+                name: '',
+                email: '',
+                address: '',
+                phone: '',
+                paymentMethod: '',
+            });
+            setErrorMessage('');
+            setShowSuccessMessage(true); // Mostrar el mensaje de éxito
+
+            // Limpiar carrito y total
+            clearCart(); // Llama a la función para limpiar el carrito y el precio total
+
+            // Ocultar el mensaje de éxito después de unos segundos
+            setTimeout(() => {
+                setShowSuccessMessage(false);
+                setOrderPopup(false); // Cerrar el formulario
+            }, 2000);
         }
     };
 
@@ -54,9 +73,15 @@ const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice }) => {
                     onClick={() => setOrderPopup(false)}
                 />
                 <h2 className="text-2xl font-bold mb-4">Sales Form</h2>
+                
                 {errorMessage && (
                     <div className="text-red-500 mb-4">{errorMessage}</div>
                 )}
+
+                {showSuccessMessage && (
+                    <div className="text-green-500 mb-4">Order placed successfully!</div>
+                )}
+                
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label htmlFor="name" className="block mb-2">Name</label>
@@ -66,7 +91,7 @@ const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice }) => {
                             name="name"
                             value={formData.name}
                             onChange={handleInputChange}
-                            className="border border-gray-300 p-2 rounded w-full"
+                            className={`border p-2 rounded w-full ${!formData.name && errorMessage ? 'border-red-500' : 'border-gray-300'}`}
                         />
                     </div>
                     <div className="mb-4">
@@ -77,7 +102,7 @@ const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice }) => {
                             name="email"
                             value={formData.email}
                             onChange={handleInputChange}
-                            className="border border-gray-300 p-2 rounded w-full"
+                            className={`border p-2 rounded w-full ${!formData.email && errorMessage ? 'border-red-500' : 'border-gray-300'}`}
                         />
                     </div>
                     <div className="mb-4">
@@ -88,7 +113,7 @@ const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice }) => {
                             name="address"
                             value={formData.address}
                             onChange={handleInputChange}
-                            className="border border-gray-300 p-2 rounded w-full"
+                            className={`border p-2 rounded w-full ${!formData.address && errorMessage ? 'border-red-500' : 'border-gray-300'}`}
                         />
                     </div>
                     <div className="mb-4">
@@ -99,7 +124,7 @@ const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice }) => {
                             name="phone"
                             value={formData.phone}
                             onChange={handleInputChange}
-                            className="border border-gray-300 p-2 rounded w-full"
+                            className={`border p-2 rounded w-full ${!formData.phone && errorMessage ? 'border-red-500' : 'border-gray-300'}`}
                         />
                     </div>
                     <div className="mb-4">
@@ -109,7 +134,7 @@ const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice }) => {
                             name="paymentMethod"
                             value={formData.paymentMethod}
                             onChange={handleInputChange}
-                            className="border border-gray-300 p-2 rounded w-full"
+                            className={`border p-2 rounded w-full ${!formData.paymentMethod && errorMessage ? 'border-red-500' : 'border-gray-300'}`}
                         >
                             <option value="">Select Payment Method</option>
                             <option value="Credit Card">Credit Card</option>
@@ -136,4 +161,3 @@ const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice }) => {
 };
 
 export default SalesForm;
-

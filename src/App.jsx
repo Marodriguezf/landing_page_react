@@ -12,8 +12,9 @@ import 'aos/dist/aos.css';
 
 const App = () => {
   const [orderPopup, setOrderPopup] = useState(false);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([]); // Estado del carrito
 
+  // Función para alternar la visibilidad del popup
   const handleOrderPopup = () => {
     setOrderPopup(!orderPopup);
   };
@@ -25,6 +26,12 @@ const App = () => {
 
   // Calcular el precio total del carrito
   const totalPrice = cart.reduce((total, product) => total + product.price, 0);
+
+  // Función para limpiar el carrito y reiniciar el precio total
+  const clearCart = () => {
+    setCart([]); // Limpiar carrito
+    // Nota: No es necesario reiniciar el estado de totalPrice aquí, ya que se calcula dinámicamente a partir del carrito.
+  };
 
   useEffect(() => {
     AOS.init({
@@ -48,16 +55,29 @@ const App = () => {
               <Products />
               <News />
               <Footer />
-              <SalesForm orderPopup={orderPopup} setOrderPopup={setOrderPopup} cart={cart} totalPrice={totalPrice} />
+              {/* Pasamos clearCart, cart y totalPrice al SalesForm */}
+              <SalesForm 
+                orderPopup={orderPopup} 
+                setOrderPopup={setOrderPopup} 
+                cart={cart} 
+                totalPrice={totalPrice} 
+                clearCart={clearCart} // Pasar la función para limpiar el carrito
+              />
             </>
           }
         />
-         <Route
+        <Route
           path="/productList"
           element={
             <>
               <ProductList addToCart={addToCart} />
-              <SalesForm orderPopup={orderPopup} setOrderPopup={setOrderPopup} cart={cart} totalPrice={totalPrice} />
+              <SalesForm 
+                orderPopup={orderPopup} 
+                setOrderPopup={setOrderPopup} 
+                cart={cart} 
+                totalPrice={totalPrice} 
+                clearCart={clearCart} // Pasar la función para limpiar el carrito
+              />
             </>
           }
         />
