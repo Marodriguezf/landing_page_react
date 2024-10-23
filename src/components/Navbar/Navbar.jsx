@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Logo from "../../assets/Logo_stgenetics.png";
 import { IoSearchCircle } from "react-icons/io5";
-import { FaShoppingCart, FaCaretDown } from "react-icons/fa";
+import { FaShoppingCart, FaCaretDown, FaBars, FaTimes } from "react-icons/fa";
 
 const Menu = [
     { id: 1, name: "Home", link: "/#" },
@@ -20,6 +20,17 @@ const DropdownLinks = [
 ];
 
 const Navbar = ({ handleOrderPopup, cartItems = 0 }) => {
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false); // Estado para el dropdown
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
+
+    const toggleDropdown = () => {
+        setDropdownOpen(!dropdownOpen); // Alterna el estado del dropdown
+    };
+
     return (
         <div className="shadow-md bg-white dark:text-white duration-200 relative z-40">
             <div className="bg-primary/20">
@@ -52,12 +63,52 @@ const Navbar = ({ handleOrderPopup, cartItems = 0 }) => {
                                 </span>
                             )}
                         </button>
+                        <div className="sm:hidden block">
+                            <button onClick={toggleMenu} className="text-2xl">
+                                {menuOpen ? <FaTimes /> : <FaBars />}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            {/* lower Navbar */}
-            <div className="flex justify-center">
-                <ul className="sm:flex hidden items-center gap-4">
+            {/* Sidebar for mobile */}
+            <div
+                className={`fixed top-0 left-0 h-full w-[250px] bg-white z-[9999] shadow-lg transform ${
+                    menuOpen ? 'translate-x-0' : '-translate-x-full'
+                } transition-transform duration-300 sm:hidden`}
+            >
+                <ul className="flex flex-col items-start p-5">
+                    {Menu.map((data) => (
+                        <li key={data.id} className="mb-4">
+                            <a href={data.link} className="text-black hover:text-primary duration-200">
+                                {data.name}
+                            </a>
+                        </li>
+                    ))}
+                    <li className="cursor-pointer">
+                        <div onClick={toggleDropdown} className="flex items-center justify-between w-full text-black hover:text-primary duration-200">
+                            <span>Contact</span>
+                            <FaCaretDown className={`ml-2 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+                        </div>
+                        {dropdownOpen && ( // Muestra el dropdown solo si está abierto
+                            <div className="mt-2 pl-4">
+                                <ul>
+                                    {DropdownLinks.map((data) => (
+                                        <li key={data.id} className="mb-2">
+                                            <a href={data.link} className="text-black hover:text-primary duration-200">
+                                                {data.name}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </li>
+                </ul>
+            </div>
+            {/* lower Navbar for larger screens */}
+            <div className={`hidden sm:flex justify-center hover:text-primary duration-200`}>
+                <ul className="flex items-center gap-4">
                     {Menu.map((data) => (
                         <li key={data.id}>
                             <a href={data.link} className="inline-block px-4 text-black hover:text-primary duration-200">
@@ -65,19 +116,16 @@ const Navbar = ({ handleOrderPopup, cartItems = 0 }) => {
                             </a>
                         </li>
                     ))}
-                    {/* Dropdown and links */}
                     <li className="group relative cursor-pointer">
-                        <a href="#" className="flex items-center gap-[2px] py-2">
+                        <a href="#" className="flex items-center gap-[2px] py-2 text-black hover:text-primary duration-200">
                             Contact
-                            <span>
-                                <FaCaretDown className="transition-all duration-200 group-hover:rotate-180" />
-                            </span>
+                            <FaCaretDown className="ml-2" />
                         </a>
-                        <div className="absolute z-[9999] hidden group-hover:block w-[150px] rounded-md bg-white p-2 text-black shadow-md">
+                        <div className="absolute hidden group-hover:block w-[150px] rounded-md bg-white p-2 text-black shadow-md">
                             <ul>
                                 {DropdownLinks.map((data) => (
                                     <li key={data.id}>
-                                        <a href={data.link} className="inline-block w-full rounded-md p-2 hover:bg-primary/20">
+                                        <a href={data.link} className="block w-full rounded-md p-2 hover:bg-primary/20">
                                             {data.name}
                                         </a>
                                     </li>
