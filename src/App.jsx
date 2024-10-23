@@ -19,18 +19,17 @@ const App = () => {
     setOrderPopup(!orderPopup);
   };
 
-  // Función para agregar productos al carrito
+
   const addToCart = (product) => {
     setCart((prevCart) => [...prevCart, product]);
   };
 
-  // Calcular el precio total del carrito
+
   const totalPrice = cart.reduce((total, product) => total + product.price, 0);
 
-  // Función para limpiar el carrito y reiniciar el precio total
+ 
   const clearCart = () => {
-    setCart([]); // Limpiar carrito
-    // Nota: No es necesario reiniciar el estado de totalPrice aquí, ya que se calcula dinámicamente a partir del carrito.
+    setCart([]); 
   };
 
   useEffect(() => {
@@ -61,7 +60,7 @@ const App = () => {
                 setOrderPopup={setOrderPopup} 
                 cart={cart} 
                 totalPrice={totalPrice} 
-                clearCart={clearCart} // Pasar la función para limpiar el carrito
+                clearCart={clearCart} 
               />
             </>
           }
@@ -76,7 +75,7 @@ const App = () => {
                 setOrderPopup={setOrderPopup} 
                 cart={cart} 
                 totalPrice={totalPrice} 
-                clearCart={clearCart} // Pasar la función para limpiar el carrito
+                clearCart={clearCart} 
               />
             </>
           }

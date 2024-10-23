@@ -2,7 +2,7 @@ import React from 'react';
 
 const FilterSidebar = () => {
     return (
-        <div className="filter-sidebar p-4 border-r w-full lg:w-1/5 xl:w-1/6">  {/* Ajusta el ancho para pantallas grandes */}
+        <div className="filter-sidebar p-4 border-r w-full lg:w-1/5 xl:w-1/6">  
             <h2 className="text-xl font-bold mb-4  text-primary">Filters</h2>
 
             {/* Precio */}

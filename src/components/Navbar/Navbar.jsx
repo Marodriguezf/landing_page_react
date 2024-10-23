@@ -21,14 +21,13 @@ const DropdownLinks = [
 
 const Navbar = ({ handleOrderPopup, cartItems = 0 }) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [dropdownOpen, setDropdownOpen] = useState(false); // Estado para el dropdown
-
+    const [dropdownOpen, setDropdownOpen] = useState(false); 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
     };
 
     const toggleDropdown = () => {
-        setDropdownOpen(!dropdownOpen); // Alterna el estado del dropdown
+        setDropdownOpen(!dropdownOpen); 
     };
 
     return (

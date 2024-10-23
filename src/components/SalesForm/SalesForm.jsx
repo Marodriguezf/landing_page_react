@@ -10,7 +10,7 @@ const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice, clearCart }) =
         paymentMethod: '',
     });
     const [errorMessage, setErrorMessage] = useState('');
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // Nuevo estado para el mensaje de éxito
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false); 
 
     const handleInputChange = (e) => {
         setFormData({
@@ -23,7 +23,7 @@ const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice, clearCart }) =
         e.preventDefault();
         const isValid = validateForm();
         if (isValid) {
-            // Limpiar el formulario y mostrar el mensaje de éxito
+            
             setFormData({
                 name: '',
                 email: '',
@@ -32,15 +32,15 @@ const SalesForm = ({ orderPopup, setOrderPopup, cart, totalPrice, clearCart }) =
                 paymentMethod: '',
             });
             setErrorMessage('');
-            setShowSuccessMessage(true); // Mostrar el mensaje de éxito
+            setShowSuccessMessage(true); 
 
-            // Limpiar carrito y total
-            clearCart(); // Llama a la función para limpiar el carrito y el precio total
+         
+            clearCart(); 
 
-            // Ocultar el mensaje de éxito después de unos segundos
+           
             setTimeout(() => {
                 setShowSuccessMessage(false);
-                setOrderPopup(false); // Cerrar el formulario
+                setOrderPopup(false); 
             }, 2000);
         }
     };
