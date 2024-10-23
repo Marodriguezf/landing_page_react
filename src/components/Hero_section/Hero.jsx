@@ -72,7 +72,7 @@ const Hero = () => {
               <h1 className="text-lg sm:text-2xl font-bold text-right">
                 {data.title}
               </h1>
-              <p className="text-3xl sm:text-5xl font-bold text-right">
+              <p className="text-3xl sm:text-5xl font-bold text-right lg:text-7xl   ">
                 {data.description}
               </p>
             </div>
