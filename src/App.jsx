@@ -52,7 +52,15 @@ const App = () => {
             </>
           }
         />
-        <Route path="/productList" element={<ProductList addToCart={addToCart} />} />
+         <Route
+          path="/productList"
+          element={
+            <>
+              <ProductList addToCart={addToCart} />
+              <SalesForm orderPopup={orderPopup} setOrderPopup={setOrderPopup} cart={cart} totalPrice={totalPrice} />
+            </>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

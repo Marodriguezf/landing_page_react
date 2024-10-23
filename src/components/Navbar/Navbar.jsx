@@ -47,7 +47,7 @@ const Navbar = ({ handleOrderPopup, cartItems = 0 }) => {
                             </span>
                             <FaShoppingCart className="text-xl text-white drop-shadow-sm cursor-pointer" />
                             {cartItems > 0 && (
-                                <span className="bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                                <span className="bg-white text-primary font-semibold text-xs rounded-full px-2 py-1">
                                     {cartItems}
                                 </span>
                             )}
