@@ -43,7 +43,7 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/landing_page_react">
       <Navbar handleOrderPopup={handleOrderPopup} cartItems={cart.length} />
       <Routes>
         <Route
