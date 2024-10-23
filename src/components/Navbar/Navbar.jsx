@@ -89,7 +89,7 @@ const Navbar = ({ handleOrderPopup, cartItems = 0 }) => {
                             <span>Contact</span>
                             <FaCaretDown className={`ml-2 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
                         </div>
-                        {dropdownOpen && ( // Muestra el dropdown solo si está abierto
+                        {dropdownOpen && ( 
                             <div className="mt-2 pl-4">
                                 <ul>
                                     {DropdownLinks.map((data) => (
